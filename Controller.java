@@ -8,7 +8,7 @@ public class Controller {
 	private KeyListener keyListener;
 	
 	public Controller(){
-		
+		//add more stuff
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 	}
