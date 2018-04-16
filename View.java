@@ -1,6 +1,6 @@
 
 public class View {
-
+	Player p;
 	final static int frameWidth = 700;
     final static int frameHeight = 700;
     final static int imgWidth = 165;
