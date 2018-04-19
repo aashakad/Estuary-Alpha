@@ -1,8 +1,12 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -19,6 +23,7 @@ public class View extends JFrame {
     final int drawDelay = 60; //msec
     static int rows = 21;
     static int columns = 24;
+    Image img;
     
 	public int getWidth(){
 		return frameWidth;
@@ -58,6 +63,13 @@ public class View extends JFrame {
     	
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			try {
+				img = ImageIO.read(new File("objects/house_background_0.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			g.drawImage(img, 0, 0, null);
 			setBackground(Color.gray);
 			g.setColor(Color.gray);
 			for (int i = 0; i < columns ; i ++) {

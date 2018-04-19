@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public enum Tile {
+	//Tiles have a 32*32 image alongside a solid variable, true if the tile cannot be 
+	//walked through, false if the player can walk through it
+	
 	
 	GROUND(createImage(new File("tiles/groundtile.png")), true),
 	;
