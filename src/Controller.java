@@ -9,11 +9,10 @@ import javax.swing.Timer;
 public class Controller {
 	private Model model;
 	private View view;
-	private Player p;
 	private ActionListener actionListener;
 	private KeyListener keyListener;
+	private Player p;
 	boolean move;
-    boolean idle;
 	
 	public Controller(){
 		//add more stuff
@@ -21,7 +20,6 @@ public class Controller {
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		move = false;
-		idle = true;
 	}
 	
 	public void start(){
@@ -32,48 +30,38 @@ public class Controller {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
-					
+				move = true;
 				if (keyCode == KeyEvent.VK_LEFT){
-					p.setFocusable(true);
-					idle = false;
-					move = true;
-					p.changeMotion(move, idle);
+					//p.setFocusable(true);
+					//idle = false;
+					//p.changeMotion(move, idle);
+					//view.p.setMove(move);
 					model.setDirect(Direction.WEST);
-					model.updateLocationAndDirection();
+					
 				}
 				else if (keyCode == KeyEvent.VK_RIGHT){
-					p.setFocusable(true);
-					idle = false;
-					move = true;
-					p.changeMotion(move, idle);
+					//p.setFocusable(true);
+					//idle = false;
+					//p.changeMotion(move, idle);
+					//view.p.setMove(move);
 					model.setDirect(Direction.EAST);
-					model.updateLocationAndDirection();
+					//model.updateLocationAndDirection();
+					//view.update(model.getX(), model.getY(), model.getDirect(), move);
 				}
+				model.updateLocationAndDirection();
+				view.update(model.getX(), model.getY(), model.getDirect(), move);
 			}
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
-				int keyCode = e.getKeyCode();
-
-				if (keyCode == KeyEvent.VK_LEFT){
-					idle = true;
-					move = false;
-					p.changeMotion(move, idle);
-				}
-				else if (keyCode == KeyEvent.VK_RIGHT){
-					idle = true;
-					move = false;
-					p.changeMotion(move, idle);
-				}
 			}
 		};
 		
 		view.addKeyListener(keyListener);
 		
-		for(int i = 0; i < 100; i++)
-		{
-			view.update(model.getX(), model.getY(), model.getDirect());
-		}
+		//model.updateLocationAndDirection();
+		//view.update(model.getX(), model.getY(), model.getDirect(), move);
+		
 		
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
@@ -82,6 +70,7 @@ public class Controller {
 				t.start(); 
 			}
 		});
+		move = false;
 	}
  
 	protected void stopMVT() {

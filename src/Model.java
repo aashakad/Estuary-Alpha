@@ -9,7 +9,7 @@ public class Model {
     int frameHeight = 700;
     int imgWidth = 165;
     int imgHeight = 165;
-    Player p = new Player();
+    //Player p = new Player();
 	
 	public Model(int fWidth, int fHeight, int iWidth, int iHeight) {
 		frameWidth = fWidth;
@@ -22,12 +22,12 @@ public class Model {
 		switch(d) {
 		case EAST:
 			xloc+=xIncr;
-			p.setXloc(xloc);
+			//p.setXloc(xloc);
 			break;
 			
 		case WEST:
 			xloc-=xIncr; 
-			p.setYloc(yloc);
+			//p.setYloc(yloc);
 			break;
 		}
 	}

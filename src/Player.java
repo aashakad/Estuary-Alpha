@@ -19,18 +19,17 @@ public class Player extends JFrame {
 	Direction d = Direction.EAST;
 	Objects players;
 	boolean move;
-	boolean idle;
 	
 	String[] adrr = new String[] {"images/characters/sonny_stand_east.png", "images/characters/sonny_stand_west.png",
 			"images/characters/sonny_run_east.png", "images/characters/sonny_run_west.png",
 			"images/characters/sunny_stand_east.png", "images/characters/sunny_stand_west.png",
-"images/characters/sunny_run_east.png", "images/characters/sunny_run_west.png"};
+			"images/characters/sunny_run_east.png", "images/characters/sunny_run_west.png"};
 	ArrayList<BufferedImage[]> playerImages = new ArrayList<BufferedImage[]>();
 
 	public Player() {
 		
 		move = false;
-		idle = true;
+		
 		
 		for (int i = 0; i < adrr.length; i++) {
 			img = createImage(new File(adrr[i]));
@@ -80,19 +79,20 @@ public class Player extends JFrame {
 		this.d = d;
 	}
 	
-	public void changeMotion(boolean move, boolean idle) {
+	public void setMove(boolean move) {
 		this.move = move;
-		this.idle = idle;
 	}
 	
 	public BufferedImage getImage() {
-		System.out.println("move is: " + move + " and idle is: " + idle);
-		if (move == true)
+		System.out.println("move is: " + move);
+		
+		if (move)
 		{
 			frameCount = 4;
+			xloc = xloc +8; 
 			pics = playerImages.get(d.getPosition());
 		}
-		else if (idle == true)
+		else
 		{
 			frameCount = 1;
 			pics = playerImages.get(d.getPosition() - 2);
