@@ -9,15 +9,19 @@ import javax.swing.Timer;
 public class Controller {
 	private Model model;
 	private View view;
+	private Player p;
 	private ActionListener actionListener;
 	private KeyListener keyListener;
 	boolean movement;
+    boolean idle;
 	
 	public Controller(){
 		//add more stuff
+		p = new Player();
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		movement = false;
+		idle = true;
 	}
 	
 	public void start(){
@@ -29,14 +33,22 @@ public class Controller {
 				int keyCode = e.getKeyCode();
 					
 				if (keyCode == KeyEvent.VK_LEFT){
+					p.setFocusable(true);
+
+					idle = false;
 					movement = true;
 					model.setDirect(Direction.WEST);
 					view.update(model.getX(), model.getDirect());
+					p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
 				}
 				if (keyCode == KeyEvent.VK_RIGHT){
+					p.setFocusable(true);
+
+					idle = false;
 					movement = true;
 					model.setDirect(Direction.EAST);
 					view.update(model.getX(), model.getDirect());
+					p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
 				}
 			}
 			@Override
@@ -44,10 +56,12 @@ public class Controller {
 				int keyCode = e.getKeyCode();
 
 				if (keyCode == KeyEvent.VK_LEFT){
+					idle = true;
 					//stopMVT();
 					//view update
 				}
 				if (keyCode == KeyEvent.VK_RIGHT){
+					idle = true;
 					//stopMVT();
 					//view update
 				}
@@ -58,13 +72,14 @@ public class Controller {
 		
 		for(int i = 0; i < 5000; i++)
 		{
-			if (movement)
+			if (movement == true)
 			{
 				model.updateLocationAndDirection();
 			}
 		}
 		//update the view
 		view.update(model.getX(), model.getDirect());
+		p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
 		
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
@@ -73,7 +88,6 @@ public class Controller {
 				t.start();
 			}
 		});
-		
 	}
  
 	protected void stopMVT() {

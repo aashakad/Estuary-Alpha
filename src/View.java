@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -31,6 +32,11 @@ public class View extends JFrame {
     Direction d = Direction.EAST;
     Player character = new Player();
     int scrollX = 0; //scrolls the background as the character moves
+
+    Tile[][] tilemap = new Tile[columns][rows];
+    static int rows = 21;
+    static int columns = 24;
+    Image background;
     
     //BufferedImage bkgrndImg = background image
     //BufferedImage grassImgNormal = normal grass image without any interaction done with it yet
@@ -38,8 +44,10 @@ public class View extends JFrame {
     //BufferedImage grassImgHealthy = healthy grass if player chooses the right action, has grass clippings
     
     public View() {
-    	//setFocusable(true);
-		//setFocusTraversalKeysEnabled(false);
+    	setFocusable(true);
+		setFocusTraversalKeysEnabled(false);
+		
+		p = new Player();
 		
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e){
@@ -53,26 +61,46 @@ public class View extends JFrame {
     	};
     
     	add(drawPanel);
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	getContentPane().setBackground(Color.gray);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getContentPane().setBackground(Color.gray);
     	setSize(frameWidth, frameHeight);
     	setVisible(true);
     	pack();
-    	
-    	// objects as buttons?
-    	
+    	for (int i = 0; i < columns; i++) {
+    		for (int j = 20; j < rows; j++) {
+    			tilemap[i][j] = Tile.GROUND;
+    		}
+    	}
     }
     
     private class DrawPanel extends JPanel {
     	
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			//This draws background image
+			try {
+				background = ImageIO.read(new File("images/objects/house_background_0.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			g.drawImage(background, 0, 0, null);
 			setBackground(Color.gray);
 			g.setColor(Color.gray);
 			
-			g.drawImage(null, scrollX, 0, Color.gray, this);
-			
-			p.paint(g);
+			//this draws the tile map
+			for (int i = 0; i < columns ; i ++) {
+				for (int j = 0; j < rows; j++) {
+					if (tilemap[i][j] != null) {
+						BufferedImage temp = tilemap[i][j].getImage();
+						int xloc = i * temp.getWidth();
+						int yloc = j * temp.getHeight();
+						g.drawImage(temp, xloc, yloc, Color.gray, this);
+					}
+				}
+			}
+			p.drawPlayer(g);
 		}
 
 		public Dimension getPreferredSize() {
