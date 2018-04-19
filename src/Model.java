@@ -15,4 +15,3 @@ public class Model {
 		imgWidth = iWidth;
 		imgHeight = iHeight;
 	}
-}

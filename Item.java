@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
-public class Player extends Object {
+public class Item extends Object {
 	BufferedImage[] pics;
 	BufferedImage img;
 	int frameCount = 10;
@@ -13,23 +13,22 @@ public class Player extends Object {
 	int xloc;
 	int yloc;
 	int imgSize = 512;
-	Objects players;
-	String[] adrr = new String[] { players.rsz_sonny_stand_east.getAddr(),  players.rsz_sonny_stand_west.getAddr(),
-			 players.rsz_sonny_run_east.getAddr(), players.rsz_sonny_run_west.getAddr(), players.rsz_sonny_jump_east.getAddr(),
-			 players.rsz_sonny_jump_west.getAddr(), players.rsz_sunny_stand_east.getAddr(),  players.rsz_sunny_stand_west.getAddr(),
-			 players.rsz_sunny_run_east.getAddr(), players.rsz_sunny_run_west.getAddr(), players.rsz_sunny_jump_east.getAddr(),
-			 players.rsz_sunny_jump_west.getAddr(), };
-	ArrayList<BufferedImage[]> playerImages = new ArrayList<BufferedImage[]>();
+	Objects items;
+	String[] adrr = new String[] {items.house_background_0.getAddr(),items.house_background_100.getAddr(),items.house_background_25.getAddr(),
+			                      items.house_background_50.getAddr(),items.house_background_75.getAddr(),items.menu.getAddr(),items.rsz_1tall_grass_100.getAddr(),items.rsz_lawnmower.getAddr(),
+			                      items.rsz_short_grass_0.getAddr(),items.rsz_short_grass_100.getAddr(),items.rsz_short_grass_50.getAddr(),
+			                      items.rsz_tall_grass_0.getAddr(),items.rsz_tall_grass_50.getAddr()};
+	ArrayList<BufferedImage[]> itemImages = new ArrayList<BufferedImage[]>();
 
-	public Player() {
-		for (int i = 0; i < adrr.length; i++) {
+	public Item() {
+		for (int i = 0; i < 16; i++) {
 			img = createImage(new File(adrr[i]));
 			frameCount = img.getWidth() / imgSize;
 			pics = new BufferedImage[10];
 			for (int j = 0; j < frameCount; j++) {
 				pics[j] = img.getSubimage(imgSize * j, 0, imgSize, imgSize);
 			}
-			playerImages.add(pics);
+			itemImages.add(pics);
 		}
 	}
 
@@ -53,7 +52,7 @@ public class Player extends Object {
 	}
 
 	public ArrayList<BufferedImage[]> getPlayerImages() {
-		return playerImages;
+		return itemImages;
 	}
 
 }

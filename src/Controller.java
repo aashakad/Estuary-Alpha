@@ -21,3 +21,8 @@ public static void main(String[] args) {
 }
 }
 
+
+		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
+	}
+}
+
