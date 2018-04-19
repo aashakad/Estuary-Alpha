@@ -1,0 +1,23 @@
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+
+public class Controller {
+	private Model model;
+	private View view;
+	private ActionListener actionListener;
+	private KeyListener keyListener;
+	
+	public Controller(){
+		//add more stuff
+		view = new View();
+		
+	}
+	public void start() {
+		view.update();
+	}
+public static void main(String[] args) {
+	Controller c = new Controller();
+	c.start();
+}
+}
+
