@@ -32,6 +32,8 @@ public class View extends JFrame {
     Direction d = Direction.EAST;
     Player character = new Player();
     int scrollX = 0; //scrolls the background as the character moves
+    int xloc = 0;
+    int yloc = 0;
 
     Tile[][] tilemap = new Tile[columns][rows];
     static int rows = 21;
@@ -81,7 +83,6 @@ public class View extends JFrame {
 			try {
 				background = ImageIO.read(new File("images/objects/house_background_0.png"));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -100,7 +101,7 @@ public class View extends JFrame {
 					}
 				}
 			}
-			p.drawPlayer(g);
+			g.drawImage(p.getImage(), xloc, yloc, null);
 		}
 
 		public Dimension getPreferredSize() {
@@ -108,9 +109,12 @@ public class View extends JFrame {
 		}
 	}
     
-    public void update(int scrollX, Direction d){
-		this.scrollX = scrollX;
+    public void update(int xloc, int yloc, Direction d){
+		//this.scrollX = scrollX;
+    	this.xloc = xloc;
+    	this.yloc = yloc;
 		this.d = d;
+		p.setDirect(d);
 		
 		repaint();
 		try {

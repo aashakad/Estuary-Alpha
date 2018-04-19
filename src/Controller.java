@@ -12,7 +12,7 @@ public class Controller {
 	private Player p;
 	private ActionListener actionListener;
 	private KeyListener keyListener;
-	boolean movement;
+	boolean move;
     boolean idle;
 	
 	public Controller(){
@@ -20,72 +20,66 @@ public class Controller {
 		p = new Player();
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
-		movement = false;
+		move = false;
 		idle = true;
 	}
 	
 	public void start(){
 		keyListener = new KeyListener() {
 			@Override
-			public void keyTyped(KeyEvent e) {}
+			public void keyTyped(KeyEvent e) {
+			}
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
 					
 				if (keyCode == KeyEvent.VK_LEFT){
 					p.setFocusable(true);
-
 					idle = false;
-					movement = true;
+					move = true;
+					p.changeMotion(move, idle);
 					model.setDirect(Direction.WEST);
-					view.update(model.getX(), model.getDirect());
-					p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
+					model.updateLocationAndDirection();
 				}
-				if (keyCode == KeyEvent.VK_RIGHT){
+				else if (keyCode == KeyEvent.VK_RIGHT){
 					p.setFocusable(true);
-
 					idle = false;
-					movement = true;
+					move = true;
+					p.changeMotion(move, idle);
 					model.setDirect(Direction.EAST);
-					view.update(model.getX(), model.getDirect());
-					p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
+					model.updateLocationAndDirection();
 				}
 			}
+			
 			@Override
 			public void keyReleased(KeyEvent e) {
 				int keyCode = e.getKeyCode();
 
 				if (keyCode == KeyEvent.VK_LEFT){
 					idle = true;
-					//stopMVT();
-					//view update
+					move = false;
+					p.changeMotion(move, idle);
 				}
-				if (keyCode == KeyEvent.VK_RIGHT){
+				else if (keyCode == KeyEvent.VK_RIGHT){
 					idle = true;
-					//stopMVT();
-					//view update
+					move = false;
+					p.changeMotion(move, idle);
 				}
 			}
 		};
-		 
+		
 		view.addKeyListener(keyListener);
 		
-		for(int i = 0; i < 5000; i++)
+		for(int i = 0; i < 100; i++)
 		{
-			if (movement == true)
-			{
-				model.updateLocationAndDirection();
-			}
+			view.update(model.getX(), model.getY(), model.getDirect());
 		}
-		//update the view
-		view.update(model.getX(), model.getDirect());
-		p.updatePlayer(model.getX(), model.getY(), model.getDirect()); 
 		
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
 			
 				Timer t = new Timer(30, view.getdrawAction());
-				t.start();
+				t.start(); 
 			}
 		});
 	}

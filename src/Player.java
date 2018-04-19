@@ -7,16 +7,20 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
+@SuppressWarnings("serial")
 public class Player extends JFrame {
 	BufferedImage[] pics;
 	BufferedImage img;
 	int frameCount = 10;
 	int picNum = 0;
-	int xloc;
-	int yloc;
+	int xloc = 0;
+	int yloc = 0;
 	int imgSize = 512;
 	Direction d = Direction.EAST;
 	Objects players;
+	boolean move;
+	boolean idle;
+	
 	String[] adrr = new String[] {"images/characters/sonny_stand_east.png", "images/characters/sonny_stand_west.png",
 			"images/characters/sonny_run_east.png", "images/characters/sonny_run_west.png",
 			"images/characters/sunny_stand_east.png", "images/characters/sunny_stand_west.png",
@@ -24,6 +28,10 @@ public class Player extends JFrame {
 	ArrayList<BufferedImage[]> playerImages = new ArrayList<BufferedImage[]>();
 
 	public Player() {
+		
+		move = false;
+		idle = true;
+		
 		for (int i = 0; i < adrr.length; i++) {
 			img = createImage(new File(adrr[i]));
 			frameCount = img.getWidth() / imgSize;
@@ -33,6 +41,7 @@ public class Player extends JFrame {
 			}
 			playerImages.add(pics);
 		}
+		
 		setVisible(true);
 	}
 
@@ -46,27 +55,6 @@ public class Player extends JFrame {
 		}
 		return null;
 	}
-	
-	public void updatePlayer(int x, int y, Direction d) {
-		xloc = x;
-		yloc = y;
-		this.d = d;
-		repaint();
-		
-		try {
-			Thread.sleep(100);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public void drawPlayer(Graphics g) {
-		pics = playerImages.get(d.getPosition());
-		
-		// frameCount = 
-		picNum = (picNum + 1) % frameCount;
-		g.drawImage(pics[picNum], xloc, yloc, null);
-	}
 
 	public int getXloc() {
 		return xloc;
@@ -75,9 +63,43 @@ public class Player extends JFrame {
 	public int getYloc() {
 		return yloc;
 	}
+	
+	public void setXloc(int x) {
+		xloc = x;
+	}
+	
+	public void setYloc(int y) {
+		yloc = y;
+	}
 
 	public ArrayList<BufferedImage[]> getPlayerImages() {
 		return playerImages;
 	}
-
+	
+	public void setDirect(Direction d) {
+		this.d = d;
+	}
+	
+	public void changeMotion(boolean move, boolean idle) {
+		this.move = move;
+		this.idle = idle;
+	}
+	
+	public BufferedImage getImage() {
+		System.out.println("move is: " + move + " and idle is: " + idle);
+		if (move == true)
+		{
+			frameCount = 4;
+			pics = playerImages.get(d.getPosition());
+		}
+		else if (idle == true)
+		{
+			frameCount = 1;
+			pics = playerImages.get(d.getPosition() - 2);
+		}
+		
+		picNum = (picNum + 1) % frameCount;
+		
+		return pics[picNum];
+	}
 }
