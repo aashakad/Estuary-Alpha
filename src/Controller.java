@@ -8,8 +8,21 @@ public class Controller {
 	private KeyListener keyListener;
 	
 	public Controller(){
-		
+		//add more stuff
 		view = new View();
+		
+	}
+	public void start() {
+		view.update();
+	}
+public static void main(String[] args) {
+	Controller c = new Controller();
+	c.start();
+}
+}
+
+
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 	}
 }
+
