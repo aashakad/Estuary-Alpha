@@ -23,7 +23,7 @@ public class View extends JFrame {
     final int drawDelay = 60; //msec
     static int rows = 21;
     static int columns = 24;
-    Image img;
+    Image background;
     
 	public int getWidth(){
 		return frameWidth;
@@ -63,15 +63,18 @@ public class View extends JFrame {
     	
 		protected void paintComponent(Graphics g) {
 			super.paintComponent(g);
+			//This draws background image
 			try {
-				img = ImageIO.read(new File("objects/house_background_0.png"));
+				background = ImageIO.read(new File("objects/house_background_0.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			g.drawImage(img, 0, 0, null);
+			g.drawImage(background, 0, 0, null);
 			setBackground(Color.gray);
 			g.setColor(Color.gray);
+			
+			//this draws the tile map
 			for (int i = 0; i < columns ; i ++) {
 				for (int j = 0; j < rows; j++) {
 					if (tilemap[i][j] != null) {
@@ -84,6 +87,7 @@ public class View extends JFrame {
 			}
 	    	
 		}
+		//Sets Window Size 
 		public Dimension getPreferredSize() {
 			return new Dimension(frameWidth, frameHeight);
 		}
