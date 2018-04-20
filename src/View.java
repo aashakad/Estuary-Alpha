@@ -107,7 +107,6 @@ public class View extends JFrame {
 	}
     
     public void update(int xloc, int yloc, Direction d, boolean move){
-		//this.scrollX = scrollX;
     	p.setXloc(xloc);
     	p.setYloc(yloc);
 		p.setDirect(d);

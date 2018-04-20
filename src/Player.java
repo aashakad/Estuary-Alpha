@@ -84,7 +84,6 @@ public class Player extends JFrame {
 	}
 	
 	public BufferedImage getImage() {
-		System.out.println("move is: " + move);
 		
 		if (move)
 		{
@@ -99,11 +98,6 @@ public class Player extends JFrame {
 		}
 		
 		picNum = (picNum + 1) % frameCount;
-		
-		/*if (d == Direction.EAST)
-			xloc = xloc+8;
-		else
-			xloc = xloc-8;*/
 		
 		
 		return pics[picNum];
