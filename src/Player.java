@@ -89,7 +89,7 @@ public class Player extends JFrame {
 		if (move)
 		{
 			frameCount = 4;
-			xloc = xloc +8; 
+			 
 			pics = playerImages.get(d.getPosition());
 		}
 		else
@@ -99,6 +99,12 @@ public class Player extends JFrame {
 		}
 		
 		picNum = (picNum + 1) % frameCount;
+		
+		/*if (d == Direction.EAST)
+			xloc = xloc+8;
+		else
+			xloc = xloc-8;*/
+		
 		
 		return pics[picNum];
 	}

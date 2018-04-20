@@ -45,8 +45,6 @@ public class Controller {
 					//p.changeMotion(move, idle);
 					//view.p.setMove(move);
 					model.setDirect(Direction.EAST);
-					//model.updateLocationAndDirection();
-					//view.update(model.getX(), model.getY(), model.getDirect(), move);
 				}
 				model.updateLocationAndDirection();
 				view.update(model.getX(), model.getY(), model.getDirect(), move);
