@@ -80,19 +80,17 @@ public class Player extends JFrame {
 		this.d = d;
 	}
 	
-	public void changeMotion(boolean move, boolean idle) {
+	public void setMove(boolean move) {
 		this.move = move;
-		this.idle = idle;
 	}
 	
 	public BufferedImage getImage() {
-		System.out.println("move is: " + move + " and idle is: " + idle);
 		if (move == true)
 		{
 			frameCount = 4;
 			pics = playerImages.get(d.getPosition());
 		}
-		else if (idle == true)
+		else if (move == false)
 		{
 			frameCount = 1;
 			pics = playerImages.get(d.getPosition() - 2);
@@ -102,4 +100,5 @@ public class Player extends JFrame {
 		
 		return pics[picNum];
 	}
+	
 }

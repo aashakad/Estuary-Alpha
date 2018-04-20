@@ -1,8 +1,8 @@
 
 public class Model {
 	Direction d = Direction.EAST;
-	int xloc=100;
-	int yloc=100;
+	int xloc=0;
+	int yloc=500;
 	final int xIncr = 8;
     final int yIncr = 8;
     int frameWidth = 700;
@@ -22,12 +22,12 @@ public class Model {
 		switch(d) {
 		case EAST:
 			xloc+=xIncr;
-			p.setXloc(xloc);
+			//p.setXloc(xloc);
 			break;
 			
 		case WEST:
 			xloc-=xIncr; 
-			p.setYloc(yloc);
+			//p.setYloc(yloc);
 			break;
 		}
 	}

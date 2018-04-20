@@ -32,23 +32,22 @@ public class Controller {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
-					
+				move = false;
 				if (keyCode == KeyEvent.VK_LEFT){
 					p.setFocusable(true);
-					idle = false;
-					move = true;
-					p.changeMotion(move, idle);
+					p.setMove(move);
 					model.setDirect(Direction.WEST);
-					model.updateLocationAndDirection();
+					move = true;
 				}
 				else if (keyCode == KeyEvent.VK_RIGHT){
 					p.setFocusable(true);
-					idle = false;
-					move = true;
-					p.changeMotion(move, idle);
+					p.setMove(move);
 					model.setDirect(Direction.EAST);
-					model.updateLocationAndDirection();
+					move = true;
+					
 				}
+				model.updateLocationAndDirection();
+				view.update(model.getX(), model.getY(), model.getDirect(), move);
 			}
 			
 			@Override
@@ -58,27 +57,27 @@ public class Controller {
 				if (keyCode == KeyEvent.VK_LEFT){
 					idle = true;
 					move = false;
-					p.changeMotion(move, idle);
+					p.setMove(move);
 				}
 				else if (keyCode == KeyEvent.VK_RIGHT){
 					idle = true;
 					move = false;
-					p.changeMotion(move, idle);
+					p.setMove(move);
 				}
 			}
 		};
 		
 		view.addKeyListener(keyListener);
 		
-		for(int i = 0; i < 100; i++)
-		{
-			view.update(model.getX(), model.getY(), model.getDirect());
-		}
+//		for(int i = 0; i < 100; i++)
+//		{
+//			view.update(model.getX(), model.getY(), model.getDirect(), move);
+//		}
 		
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
-			
-				Timer t = new Timer(30, view.getdrawAction());
+				view.update(model.getX(), model.getY(), model.getDirect(), move);
+				Timer t = new Timer(60, view.getdrawAction());
 				t.start(); 
 			}
 		});

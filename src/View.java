@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -29,11 +30,8 @@ public class View extends JFrame {
     final int drawDelay = 30; //msec
     DrawPanel drawPanel = new DrawPanel();
     Action drawAction;
-    Direction d = Direction.EAST;
     Player character = new Player();
     int scrollX = 0; //scrolls the background as the character moves
-    int xloc = 0;
-    int yloc = 0;
 
     Tile[][] tilemap = new Tile[columns][rows];
     static int rows = 21;
@@ -101,7 +99,7 @@ public class View extends JFrame {
 					}
 				}
 			}
-			g.drawImage(p.getImage(), xloc, yloc, null);
+			g.drawImage(p.getImage(), p.getXloc(), p.getYloc(), null);
 		}
 
 		public Dimension getPreferredSize() {
@@ -109,12 +107,12 @@ public class View extends JFrame {
 		}
 	}
     
-    public void update(int xloc, int yloc, Direction d){
+    public void update(int xloc, int yloc, Direction d, boolean move){
 		//this.scrollX = scrollX;
-    	this.xloc = xloc;
-    	this.yloc = yloc;
-		this.d = d;
+    	p.setXloc(xloc);
+    	p.setYloc(yloc);
 		p.setDirect(d);
+		p.setMove(move);
 		
 		repaint();
 		try {
