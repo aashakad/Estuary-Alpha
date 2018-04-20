@@ -1,27 +1,36 @@
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 
-public class Player extends Object {
+@SuppressWarnings("serial")
+public class Player extends JFrame {
 	BufferedImage[] pics;
 	BufferedImage img;
 	int frameCount = 10;
 	int picNum = 0;
-	int xloc;
-	int yloc;
-	int imgSize = 512;
+	int xloc = 700;
+	int yloc = 500;
+	int imgSize = 165;
+	Direction d = Direction.EAST;
 	Objects players;
-	String[] adrr = new String[] { players.rsz_sonny_stand_east.getAddr(),  players.rsz_sonny_stand_west.getAddr(),
-			 players.rsz_sonny_run_east.getAddr(), players.rsz_sonny_run_west.getAddr(), players.rsz_sonny_jump_east.getAddr(),
-			 players.rsz_sonny_jump_west.getAddr(), players.rsz_sunny_stand_east.getAddr(),  players.rsz_sunny_stand_west.getAddr(),
-			 players.rsz_sunny_run_east.getAddr(), players.rsz_sunny_run_west.getAddr(), players.rsz_sunny_jump_east.getAddr(),
-			 players.rsz_sunny_jump_west.getAddr(), };
+	boolean move;
+	boolean gotMower;	
+	String[] adrr = new String[] {"images/characters/sonny_stand_east.png", "images/characters/sonny_stand_west.png",
+			"images/characters/sonny_run_east.png", "images/characters/sonny_run_west.png",
+			"images/characters/sunny_stand_east.png", "images/characters/sunny_stand_west.png",
+			"images/characters/sunny_run_east.png", "images/characters/sunny_run_west.png"};
 	ArrayList<BufferedImage[]> playerImages = new ArrayList<BufferedImage[]>();
 
 	public Player() {
+		
+		move = false;
+		gotMower = false;		
+		
 		for (int i = 0; i < adrr.length; i++) {
 			img = createImage(new File(adrr[i]));
 			frameCount = img.getWidth() / imgSize;
@@ -31,6 +40,8 @@ public class Player extends Object {
 			}
 			playerImages.add(pics);
 		}
+		
+		setVisible(true);
 	}
 
 	private BufferedImage createImage(File f) {
@@ -51,9 +62,60 @@ public class Player extends Object {
 	public int getYloc() {
 		return yloc;
 	}
+	
+	public void setXloc(int x) {
+		xloc = x;
+	}
+	
+	public void setYloc(int y) {
+		yloc = y;
+	}
 
 	public ArrayList<BufferedImage[]> getPlayerImages() {
 		return playerImages;
 	}
-
+	
+	public void setDirect(Direction d) {
+		this.d = d;
+	}
+	
+	public void setMove(boolean move) {
+		this.move = move;
+	}
+	
+	public boolean getStopped() {
+		if(!gotMower) {
+			if(xloc <= 150) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public BufferedImage getImage() {		
+		if (move && !(this.getStopped())){
+			frameCount = 4; 
+			pics = playerImages.get(d.getPosition());
+		}
+		else
+		{
+			frameCount = 1;
+			pics = playerImages.get(d.getPosition() - 2);
+		}
+		
+		picNum = (picNum + 1) % frameCount;
+		
+		/*if (d == Direction.EAST)
+			xloc = xloc+8;
+		else
+			xloc = xloc-8;*/
+		
+		
+		return pics[picNum];
+	}
 }
