@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class View extends JFrame {
-	Tile[][] tilemap = new Tile[columns][rows];
+	TileMap layout;
 	Player p;
 	final static int frameWidth = 700;
     final static int frameHeight = 700;
@@ -22,7 +22,7 @@ public class View extends JFrame {
     Action drawAction;
     final int drawDelay = 60; //msec
     static int rows = 21;
-    static int columns = 24;
+    static int columns = 22;
     Image background;
     
 	public int getWidth(){
@@ -44,11 +44,9 @@ public class View extends JFrame {
     	setSize(frameWidth, frameHeight);
     	setVisible(true);
     	pack();
-    	for (int i = 0; i < columns; i++) {
-    		for (int j = 20; j < rows; j++) {
-    			tilemap[i][j] = Tile.GROUND;
-    		}
-    	}
+    	
+    	// this initializes the tile map's 2d array with tiles
+    	layout = new TileMap("house");
     	
 	}
 	public void update(){
@@ -75,10 +73,11 @@ public class View extends JFrame {
 			g.setColor(Color.gray);
 			
 			//this draws the tile map
-			for (int i = 0; i < columns ; i ++) {
+			for (int i = 0; i < columns ; i++) {
 				for (int j = 0; j < rows; j++) {
-					if (tilemap[i][j] != null) {
-						BufferedImage temp = tilemap[i][j].getImage();
+					Tile[][] newTileMap = layout.getTilemap();
+					if (newTileMap[i][j] != null) {
+						BufferedImage temp = newTileMap[i][j].getImage();
 						int xloc = i * temp.getWidth();
 						int yloc = j * temp.getHeight();
 						g.drawImage(temp, xloc, yloc, Color.gray, this);

@@ -10,7 +10,7 @@ public enum Tile {
 	
 	
 	GROUND(createImage(new File("tiles/groundtile.png")), true),
-	;
+	DOOR(createImage(new File("tiles/doortile.png")), false);
 	
 	private BufferedImage image;
 	private boolean solid;

@@ -10,6 +10,7 @@ public class Controller {
 	public Controller(){
 		//add more stuff
 		view = new View();
+		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		
 	}
 	public void start() {
@@ -21,8 +22,4 @@ public static void main(String[] args) {
 }
 }
 
-
-		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
-	}
-}
 
