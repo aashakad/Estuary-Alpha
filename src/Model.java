@@ -2,9 +2,9 @@
 public class Model {
 	Direction d = Direction.EAST;
 	int xloc=100;
-	int yloc=100;
-	final int xIncr = 8;
-    final int yIncr = 8;
+	int yloc=500;
+	final int xIncr = 20;
+    final int yIncr = 20;
     int frameWidth = 700;
     int frameHeight = 700;
     int imgWidth = 165;
@@ -30,6 +30,7 @@ public class Model {
 			//p.setYloc(yloc);
 			break;
 		}
+		System.out.println("updated location in model");
 	}
 
 	public int getX() {

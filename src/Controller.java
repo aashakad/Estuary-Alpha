@@ -52,12 +52,14 @@ public class Controller {
 			
 			@Override
 			public void keyReleased(KeyEvent e) {
+				
 			}
 		};
 		
 		view.addKeyListener(keyListener);
-		
-		//model.updateLocationAndDirection();
+		for (int i = 0; i <5000; i++)
+			if (move)
+				model.updateLocationAndDirection();
 		//view.update(model.getX(), model.getY(), model.getDirect(), move);
 		
 		

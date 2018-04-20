@@ -15,7 +15,7 @@ public class Player extends JFrame {
 	int picNum = 0;
 	int xloc = 0;
 	int yloc = 0;
-	int imgSize = 512;
+	int imgSize = 165;
 	Direction d = Direction.EAST;
 	Objects players;
 	boolean move;
