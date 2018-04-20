@@ -13,8 +13,8 @@ public class Player extends JFrame {
 	BufferedImage img;
 	int frameCount = 10;
 	int picNum = 0;
-	int xloc = 0;
-	int yloc = 0;
+	int xloc = 100;
+	int yloc = 500;
 	int imgSize = 165;
 	Direction d = Direction.EAST;
 	Objects players;
