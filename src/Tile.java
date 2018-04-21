@@ -9,8 +9,8 @@ public enum Tile {
 	//walked through, false if the player can walk through it
 	
 	
-	GROUND(createImage(new File("tiles/groundtile.png")), true),
-	;
+	GROUND(createImage(new File("images/tiles/groundtile.png")), true),
+	DOOR(createImage(new File("images/tiles/doortile.png")), false);
 	
 	private BufferedImage image;
 	private boolean solid;

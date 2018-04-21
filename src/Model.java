@@ -1,9 +1,10 @@
 
 public class Model {
+	Direction d = Direction.EAST;
 	int xloc=100;
-	int yloc=100;
-	final int xIncr = 1;
-    final int yIncr = 1;
+	int yloc=500;
+	final int xIncr = 20;
+    final int yIncr = 20;
     int frameWidth = 700;
     int frameHeight = 700;
     int imgWidth = 165;
@@ -15,3 +16,32 @@ public class Model {
 		imgWidth = iWidth;
 		imgHeight = iHeight;
 	}
+	
+	public void updateLocationAndDirection() {
+		switch(d) {
+		case EAST:
+			xloc+=xIncr;
+			break;
+			
+		case WEST:
+			xloc-=xIncr; 
+			break;
+		}
+	}
+
+	public int getX() {
+		return xloc;
+	}
+
+	public int getY() {
+		return yloc;
+	}
+	
+	public Direction getDirect(){
+		return d;
+	}
+	
+	public void setDirect(Direction d){
+		this.d = d;
+	}
+}
