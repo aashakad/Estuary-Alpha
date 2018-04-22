@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.BorderLayout;
@@ -27,6 +28,7 @@ public class View extends JFrame {
     final static int imgWidth = 165;
     final static int imgHeight = 165;
     final int drawDelay = 30; //msec
+    long startTime;
     DrawPanel drawPanel = new DrawPanel();
     Action drawAction;
     Player character = new Player();
@@ -47,6 +49,8 @@ public class View extends JFrame {
 		setFocusTraversalKeysEnabled(false);
 		
 		p = new Player();
+		
+		startTime = System.currentTimeMillis();
 		
 		drawAction = new AbstractAction(){
     		public void actionPerformed(ActionEvent e){
@@ -78,7 +82,7 @@ public class View extends JFrame {
 			super.paintComponent(g);
 			//This draws background image
 			try {
-				background = ImageIO.read(new File("images/objects/house_background_0.png"));
+				background = ImageIO.read(new File("images/objects/house_background_100.png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -86,6 +90,11 @@ public class View extends JFrame {
 			g.drawImage(background, 0, 0, null);
 			setBackground(Color.gray);
 			g.setColor(Color.gray);
+			
+			
+			String time = "TIME ELAPSED:  " + (System.currentTimeMillis() - startTime)/1000 + " s";
+			Image img = createImageWithText(time);
+			g.drawImage(img, 200, 10, null);
 			
 			//this draws the tile map
 			for (int i = 0; i < columns ; i ++) {
@@ -106,6 +115,15 @@ public class View extends JFrame {
 		}
 	}
     
+    private static BufferedImage createImageWithText(String s){ 
+    	
+        BufferedImage bufferedImage = new BufferedImage(235, 30, BufferedImage.TYPE_INT_RGB);
+        Graphics g = bufferedImage.getGraphics();
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 25)); 
+        g.drawString(s, 2, 25);
+
+        return bufferedImage;
+    }
     public void update(int xloc, int yloc, Direction d, boolean move){
     	p.setXloc(xloc);
     	p.setYloc(yloc);
