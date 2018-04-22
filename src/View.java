@@ -4,6 +4,7 @@ import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,9 +34,7 @@ public class View extends JFrame {
     Action drawAction;
     Direction d = Direction.EAST;
     Player character = new Player();
-    int scrollX = 0; //scrolls the background as the character moves
-    int xloc = 0;
-    int yloc = 500;
+   
     
     TileMap layout;
     static int rows = 21;
@@ -44,6 +43,9 @@ public class View extends JFrame {
     BufferedImage lawnmower_txt;
     BufferedImage shortgrass_100;
     BufferedImage tallgrass_100;
+    boolean grassCut = false;
+    boolean mowerEquip = false;
+    BufferedImage lawnMower;
     
     public View() {
     	setFocusable(true);
@@ -77,33 +79,35 @@ public class View extends JFrame {
 			super.paintComponent(g);
 			//This draws background image
 			try {
-				background = ImageIO.read(new File("images/objects/house_background_0.png"));
+				background = ImageIO.read(new File("images/objects/house_background_100.png"));
 				lawnmower_txt = ImageIO.read(new File("images/objects/lawnmower_txt.png"));
 				shortgrass_100 = ImageIO.read(new File("images/objects/short_grass_100.png"));
 				tallgrass_100 = ImageIO.read(new File("images/objects/tall_grass_100.png"));
+				lawnMower = ImageIO.read(new File("images/objects/lawnmower.png"));
 				
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
 			g.drawImage(background, 0, 0, null);
-			
+					
 			for(int i = 0; i <= 150; i+= 30) {
 				g.drawImage(shortgrass_100, i, 610, null);
 				}
-				for(int i = 0; i <= 150; i+= 30) {
-					g.drawImage(tallgrass_100, i, 610, null);
-				}
-				if(p.getStopped()) {
-					g.drawImage(lawnmower_txt, 100, 400, null);
+				
+			// removes grass when lawnmower runs over it
+				if (p.mow == true && p.getXloc() <= 150 && p.getYloc() == 500) {
+					grassCut = true;
+					}
+				
+				else if (!grassCut){
+					for (int i = 0; i <= 150; i+=30) {
+						g.drawImage(tallgrass_100, i, 610, null);
+					}
 				}
 				
-				// removes grass when lawnmower runs over it
-				if (p.mow == true && p.getXloc() <= 150 && p.getYloc() == 500) {
-					Graphics2D g2 = (Graphics2D) g;
-					System.out.println("mowing the grass!");
-					g2.setColor(this.getBackground());
-					g2.fillRect(p.getXloc(), 610, tallgrass_100.getWidth(), tallgrass_100.getHeight());
+				if(p.getStopped()) {
+					g.drawImage(lawnmower_txt, 100, 400, null);
 				}
 				
 			setBackground(Color.gray);
@@ -122,6 +126,14 @@ public class View extends JFrame {
 					}
 				}
 			}
+			
+			// draws the lawnmower
+			if (!mowerEquip)
+			{
+				g.drawImage(lawnMower, 400, 610, null);
+			}
+			
+			// draws player
 			g.drawImage(p.getImage(), p.getXloc(), p.getYloc(), null);
 		}
 
@@ -132,6 +144,7 @@ public class View extends JFrame {
     
     public void update(int xloc, int yloc, Direction d, boolean move, boolean mow){
 		//this.scrollX = scrollX;
+    	System.out.println("");
     	
     	if(p.getStopped() && d == Direction.WEST) {
     		p.setXloc(125);
@@ -139,14 +152,19 @@ public class View extends JFrame {
     	
     	else {
     		p.setXloc(xloc);
-        	p.setYloc(yloc);
-    		p.setDirect(d);
-    		p.setAction(move, mow);
+    	}
+    	
+    	p.setYloc(yloc);
+		p.setDirect(d);
+		p.setAction(move, mow);
+    	
+    	if (mow)
+    	{
+    		mowerEquip = true;
     	}
     	
 		repaint();
-		System.out.println("players xloc: " + p.getXloc());
-		System.out.println("players yloc: " + p.getYloc());
+		
 		
 		try {
 			Thread.sleep(100);

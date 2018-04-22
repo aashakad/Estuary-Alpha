@@ -15,6 +15,7 @@ public class Controller {
 	private Player p;
 	boolean move;
 	boolean mow;
+	boolean mowerEquip;
 	
 	public Controller(){
 		p = new Player();
@@ -22,7 +23,7 @@ public class Controller {
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		move = false;
 		// mow is set to true for grass cutting test purposes, by default it should be set to false
-		mow = true;
+		mow = false;
 	}
 	
 	public void start(){
@@ -33,14 +34,22 @@ public class Controller {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
-				move = true;
+				
 				if (keyCode == KeyEvent.VK_LEFT){
 					model.setDirect(Direction.WEST);
-					
+					move = true;
 				}
 				else if (keyCode == KeyEvent.VK_RIGHT){
-
 					model.setDirect(Direction.EAST);
+					move = true;
+				}
+				else if (keyCode == KeyEvent.VK_SPACE) {
+					System.out.println("Spacebar is pressed");
+					if (p.closeToMower()) {
+						System.out.println("updated move");
+						mow = true;
+						move = false;
+					}
 				}
 			}
 			
@@ -48,7 +57,6 @@ public class Controller {
 			public void keyReleased(KeyEvent e) {
 				move = false;
 				view.update(model.getX(), model.getY(), model.getDirect(), move, mow);
-				
 			}
 		};
 		
@@ -75,7 +83,6 @@ public class Controller {
 		EventQueue.invokeLater(new Runnable(){
 			public void run(){
 				
-			
 				Timer t = new Timer(120, view.getdrawAction());
 				t.start(); 
 			}

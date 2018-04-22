@@ -1,7 +1,7 @@
 
 public class Model {
 	Direction d = Direction.EAST;
-	int xloc=100;
+	int xloc=200;
 	int yloc=500;
 	final int xIncr = 20;
     final int yIncr = 20;

@@ -14,8 +14,8 @@ public class Player {
 	BufferedImage img;
 	int frameCount = 10;
 	int picNum = 0;
-	int xloc = 100;
-	int yloc = 500;
+	int xloc;
+	int yloc;
 	int imgSize = 165;
 	int imgWidth;
 	int imgHeight;
@@ -102,16 +102,30 @@ public class Player {
 		}
 	}
 	
+	public boolean closeToMower() {
+		
+		System.out.println("players xloc: " + xloc);
+		System.out.println("players yloc: " + yloc);
+		//if (!mow) {
+			if (xloc >= 330 && xloc <= 360)
+			{
+				System.out.println("Player is close to mower");
+				return true;
+			}
+		//}
+		return false;
+	}
+
+	
 	public BufferedImage getImage() {
 		int i = 0;
 		
-		if (move)
-		{
+		if (move && !mow) {
 			frameCount = 4;
 			i = 2;
 		}
 		else if (mow) {
-			frameCount = 4;
+			frameCount = 1;
 			i = 4;
 		}
 		else
