@@ -21,7 +21,8 @@ public class Controller {
 		view = new View();
 		model = new Model(view.getWidth(), view.getHeight(), view.getImageWidth(), view.getImageHeight());
 		move = false;
-		mow = false;
+		// mow is set to true for grass cutting test purposes, by default it should be set to false
+		mow = true;
 	}
 	
 	public void start(){

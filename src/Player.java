@@ -35,8 +35,6 @@ public class Player {
 
 	public Player() {
 		
-		move = false;
-		
 		for (int i = 0; i < adrr.length; i++) {
 			img = createImage(new File(adrr[i]));
 			frameCount = img.getWidth() / imgSize;
@@ -103,7 +101,6 @@ public class Player {
 			return false;
 		}
 	}
-
 	
 	public BufferedImage getImage() {
 		int i = 0;
