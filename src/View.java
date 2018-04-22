@@ -74,7 +74,7 @@ public class View extends JFrame {
 			super.paintComponent(g);
 			//This draws background image
 			try {
-				background = ImageIO.read(new File("images/objects/house_background_0.png"));
+				background = ImageIO.read(new File("images/objects/house_background_100.png"));
 				tallgrass_100 = ImageIO.read(new File("images/objects/tall_grass_100.png"));
 				shortgrass_100 = ImageIO.read(new File("images/objects/short_grass_100.png"));
 				lawnmower_txt = ImageIO.read(new File("images/objects/lawnmower_txt.png"));
@@ -117,6 +117,11 @@ public class View extends JFrame {
     
     public void update(int xloc, int yloc, Direction d, boolean move){
 		//this.scrollX = scrollX;
+    	
+    	if(p.getStopped() && d == Direction.WEST) {
+    		p.setXloc(125);
+    	}
+    	else
     	p.setXloc(xloc);
     	p.setYloc(yloc);
 		p.setDirect(d);
