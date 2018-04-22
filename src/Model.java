@@ -31,6 +31,16 @@ public class Model {
 			xloc-=xIncr; 
 			//p.setYloc(yloc);
 			break;
+			
+		case INTERACTEAST:
+			xloc+=xIncr;
+			//p.setXloc(xloc);
+			break;
+			
+		case INTERACTWEST:
+			xloc+=xIncr;
+			//p.setXloc(xloc);
+			break;
 		}
 	}
 

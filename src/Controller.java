@@ -40,14 +40,27 @@ public class Controller {
 				}
 				int keyCode = e.getKeyCode();
 				move = true;
-				if (keyCode == KeyEvent.VK_LEFT){
+				if (keyCode == KeyEvent.VK_LEFT&&p.getXloc()==i.getXloc()){
 					//p.setFocusable(true);
 					//idle = false;
 					//p.changeMotion(move, idle);
 					//view.p.setMove(move);
-					model.setDirect(Direction.WEST);
+					interact=true;
+					p.setInteract(true);
+					model.setDirect(Direction.INTERACTWEST);}
+				
+					else if(keyCode == KeyEvent.VK_LEFT){
+						model.setDirect(Direction.WEST);
+					}
 					
-					
+				else if (keyCode == KeyEvent.VK_RIGHT&&p.getXloc()==i.getXloc()){
+					//p.setFocusable(true);
+					//idle = false;
+					//p.changeMotion(move, idle);
+					//view.p.setMove(move);
+					interact=true;
+					p.setInteract(true);
+					model.setDirect(Direction.INTERACTEAST);
 				}
 				else if (keyCode == KeyEvent.VK_RIGHT){
 					//p.setFocusable(true);
@@ -56,6 +69,7 @@ public class Controller {
 					//view.p.setMove(move);
 					model.setDirect(Direction.EAST);
 				}
+				
 				//model.updateLocationAndDirection();
 				//view.update(model.getX(), model.getY(), model.getDirect(), move);
 				

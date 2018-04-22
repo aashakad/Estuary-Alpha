@@ -110,8 +110,10 @@ public class Player extends JFrame {
 		}
 		}
 		else{
-			pics=playerImages.get(d.getPosition()+2);
+			frameCount=4;
+			pics=playerImages.get(d.getPosition());
 		}
+		
 		picNum=(picNum+1)%frameCount;
 		/*if (d == Direction.EAST)
 			xloc = xloc+8;
