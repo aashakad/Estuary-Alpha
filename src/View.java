@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -34,7 +35,7 @@ public class View extends JFrame {
     Action drawAction;
     Direction d = Direction.EAST;
     Player character = new Player();
-   
+    long startTime;
     
     TileMap layout;
     static int rows = 21;
@@ -50,7 +51,7 @@ public class View extends JFrame {
     public View() {
     	setFocusable(true);
 		setFocusTraversalKeysEnabled(false);
-		
+		startTime = System.currentTimeMillis();
 		p = new Player();
 		
 		drawAction = new AbstractAction(){
@@ -90,7 +91,10 @@ public class View extends JFrame {
 			}
 			
 			g.drawImage(background, 0, 0, null);
-					
+			String time = "TIME LEFT:  " + (60 - (System.currentTimeMillis()-startTime)/1000) + " s";
+			Image img = createImageWithText(time);
+			
+			g.drawImage(img, 200, 10, null);
 			for(int i = 0; i <= 150; i+= 30) {
 				g.drawImage(shortgrass_100, i, 610, null);
 				}
@@ -141,6 +145,14 @@ public class View extends JFrame {
 			return new Dimension(frameWidth, frameHeight);
 		}
 	}
+    
+    private static BufferedImage createImageWithText(String s){
+    	BufferedImage b = new BufferedImage(215, 30, BufferedImage.TYPE_INT_RGB);
+    	Graphics g = b.getGraphics();
+    	g.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+    	g.drawString(s, 2, 25);
+    	return b;
+    }
     
     public void update(int xloc, int yloc, Direction d, boolean move, boolean mow){
 		//this.scrollX = scrollX;
